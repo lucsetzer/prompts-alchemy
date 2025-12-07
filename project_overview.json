@@ -1,0 +1,165 @@
+{
+  "project_name": "AI Prompt Optimizer",
+  "tagline": "Get the best results from any AI platform",
+  "created_date": "2025-12-07",
+  "version": "1.0.0",
+  "project_overview": {
+    "description": "A web application that transforms user intentions into optimized, platform-specific AI prompts",
+    "problem_solved": "Most users struggle to write effective prompts for AI platforms, leading to poor results and frustration",
+    "solution": "Intelligent prompt engineering service that understands each AI platform's unique requirements and generates tailored prompts",
+    "target_users": [
+      "Content creators using AI tools",
+      "Business professionals leveraging AI",
+      "Developers integrating AI into workflows",
+      "Students and researchers",
+      "Marketing teams"
+    ]
+  },
+  "core_features": {
+    "mvp_features": [
+      {
+        "feature": "Platform Selection",
+        "description": "Dropdown to select target AI platform (ChatGPT, Claude, Midjourney, Gemini, etc.)"
+      },
+      {
+        "feature": "Intent Input",
+        "description": "Text area where users describe what they want in plain language"
+      },
+      {
+        "feature": "Prompt Generation",
+        "description": "AI-powered engine that generates optimized prompts based on platform and intent"
+      },
+      {
+        "feature": "Copy to Clipboard",
+        "description": "One-click copy of generated prompt"
+      },
+      {
+        "feature": "Basic User Accounts",
+        "description": "Sign up/login to track usage for monetization"
+      }
+    ],
+    "phase_2_features": [
+      {
+        "feature": "Prompt Library",
+        "description": "Save and organize generated prompts"
+      },
+      {
+        "feature": "Prompt Templates",
+        "description": "Pre-built templates for common use cases"
+      },
+      {
+        "feature": "Prompt History",
+        "description": "View and reuse previous prompts"
+      },
+      {
+        "feature": "Effectiveness Ratings",
+        "description": "Users rate how well prompts worked to improve the system"
+      }
+    ],
+    "phase_3_features": [
+      {
+        "feature": "A/B Testing",
+        "description": "Generate multiple prompt variations"
+      },
+      {
+        "feature": "API Access",
+        "description": "Developer API for integration"
+      },
+      {
+        "feature": "Team Collaboration",
+        "description": "Share prompts within organizations"
+      },
+      {
+        "feature": "Advanced Analytics",
+        "description": "Track prompt performance and usage patterns"
+      }
+    ]
+  },
+  "supported_platforms": {
+    "mvp_platforms": [
+      {
+        "name": "ChatGPT",
+        "optimization_focus": "Clear instructions, role assignment, structured output format, examples"
+      },
+      {
+        "name": "Claude",
+        "optimization_focus": "XML tags, detailed context, thinking steps, constitutional AI principles"
+      },
+      {
+        "name": "Midjourney",
+        "optimization_focus": "Visual descriptors, aspect ratios, style parameters, negative prompts"
+      },
+      {
+        "name": "Gemini",
+        "optimization_focus": "Multimodal capabilities, structured data, clear task definition"
+      },
+      {
+        "name": "Stable Diffusion",
+        "optimization_focus": "Detailed descriptions, artistic styles, technical parameters, weights"
+      }
+    ],
+    "future_platforms": [
+      "DALL-E 3",
+      "GitHub Copilot",
+      "Perplexity AI",
+      "Llama",
+      "Custom fine-tuned models"
+    ]
+  },
+  "monetization_strategy": {
+    "recommended_model": "Freemium with Tiered Subscriptions",
+    "tiers": [
+      {
+        "name": "Free",
+        "price": "$0/month",
+        "features": [
+          "5 prompts per day",
+          "Basic platforms (ChatGPT, Claude, Midjourney)",
+          "Copy to clipboard",
+          "Community templates"
+        ]
+      },
+      {
+        "name": "Pro",
+        "price": "$9.99/month",
+        "features": [
+          "Unlimited prompts",
+          "All platforms",
+          "Prompt library (save up to 100)",
+          "Prompt history",
+          "A/B testing (3 variations)",
+          "Priority support"
+        ]
+      },
+      {
+        "name": "Team",
+        "price": "$29.99/month",
+        "features": [
+          "Everything in Pro",
+          "5 team members",
+          "Shared prompt library",
+          "Team analytics",
+          "API access (10k calls/month)",
+          "Custom templates"
+        ]
+      },
+      {
+        "name": "Enterprise",
+        "price": "Custom pricing",
+        "features": [
+          "Everything in Team",
+          "Unlimited team members",
+          "Unlimited API calls",
+          "Custom platform integration",
+          "Dedicated support",
+          "On-premise deployment option"
+        ]
+      }
+    ],
+    "additional_revenue": [
+      "Pay-per-prompt credits for occasional users",
+      "White-label licensing",
+      "Affiliate partnerships with AI platforms"
+    ]
+  }
+}

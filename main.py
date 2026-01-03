@@ -240,50 +240,86 @@ async def debug_wizard_internals():
 
 
 
-# ============================================
-# DIRECT MOUNT TEST (FIXED VERSION)
-# ============================================
-print("\n" + "=" * 60)
-print("🧪 DIRECT MOUNT TEST")
-print("=" * 60)
+loaded_wizards = []
 
-try:
-    # Use importlib to handle hyphen in folder name
-    import importlib.util
-    import sys
+for folder_name, mount_path in WIZARDS:
+    wizard_path = f"apps/{folder_name}/app.py"
     
-    wizard_path = "apps/prompt-wizard/app.py"
+    print(f"\n{'='*50}")
+    print(f"🚀 ATTEMPTING TO LOAD: {folder_name}")
+    print(f"{'='*50}")
+    print(f"1. Checking path: {wizard_path}")
+    print(f"   Path exists: {os.path.exists(wizard_path)}")
     
-    # Load the module
-    spec = importlib.util.spec_from_file_location("prompt_wizard_test", wizard_path)
-    wizard_module = importlib.util.module_from_spec(spec)
-    sys.modules["prompt_wizard_test"] = wizard_module
-    spec.loader.exec_module(wizard_module)
+    if not os.path.exists(wizard_path):
+        print(f"⏸️  SKIPPED: {folder_name:20} | No app.py found")
+        continue
     
-    print(f"✅ Prompt wizard module loaded")
-    print(f"   Has 'app' attribute? {hasattr(wizard_module, 'app')}")
-    
-    if hasattr(wizard_module, 'app'):
-        # Mount it at a test path
-        app.mount("/test-prompt", wizard_module.app)
-        print(f"   ✅ Mounted at /test-prompt")
+    try:
+        print(f"2. Creating import spec...")
+        spec = importlib.util.spec_from_file_location(folder_name, wizard_path)
+        print(f"   Spec created: {spec is not None}")
         
-        # Check for duplicate layout function
-        if hasattr(wizard_module, 'layout'):
-            print(f"   ⚠️  WARNING: Wizard has its own layout() function!")
-            print(f"   This will override the root layout. Delete it!")
-        else:
-            print(f"   ✅ Using root layout (good)")
+        wizard_module = importlib.util.module_from_spec(spec)
+        sys.modules[folder_name] = wizard_module
+        
+        print(f"3. EXECUTING MODULE (this might fail)...")
+        spec.loader.exec_module(wizard_module)  # <-- CRITICAL LINE
+        print(f"   ✅ Module executed successfully!")
+        
+        print(f"4. Checking module attributes:")
+        print(f"   • Has 'app'? {hasattr(wizard_module, 'app')}")
+        print(f"   • Has 'layout' function? {hasattr(wizard_module, 'layout')}")
+        print(f"   • Has 'home' function? {hasattr(wizard_module, 'home')}")
+        print(f"   • All attributes: {[a for a in dir(wizard_module) if not a.startswith('_')][:10]}...")
+        
+        # STRATEGY 1: Check for FastAPI 'app' object (most common)
+        if hasattr(wizard_module, 'app'):
+            print(f"5. Mounting FastAPI app at '{mount_path}'...")
+            app.mount(mount_path, wizard_module.app)
+            status = "✅ MOUNTED (FastAPI app)"
             
-    else:
-        print(f"   ❌ No 'app' found in module")
-        print(f"   Available attributes: {[a for a in dir(wizard_module) if not a.startswith('_')]}")
+        # STRATEGY 2: Check for APIRouter 'router' object
+        elif hasattr(wizard_module, 'router'):
+            app.include_router(wizard_module.router, prefix=mount_path)
+            status = "✅ ROUTER (APIRouter)"
+            
+        # STRATEGY 3: Check for function-based endpoints
+        elif hasattr(wizard_module, 'home'):
+            print(f"5. Creating route for function at '{mount_path}'...")
+            @app.get(mount_path + "/")
+            async def wizard_home():
+                return await wizard_module.home()
+            status = "✅ FUNCTION (home endpoint)"
+            
+        # STRATEGY 4: Special handling for home-page
+        elif folder_name == "home-page":
+            status = "🏠 HOME (handled separately)"
+            
+        else:
+            status = "⚠️  UNKNOWN (no app/router found)"
         
-except Exception as e:
-    print(f"❌ Direct mount test FAILED: {e}")
-    import traceback
-    traceback.print_exc()
+        loaded_wizards.append((folder_name, mount_path, status))
+        print(f"6. RESULT: {status}")
+        print(f"   Path: {folder_name:20} -> {mount_path}")
+        
+    except Exception as e:
+        print(f"❌❌❌ LOAD FAILED!")
+        print(f"   Error type: {type(e).__name__}")
+        print(f"   Error message: {str(e)}")
+        print(f"   Full traceback:")
+        import traceback
+        traceback.print_exc()
+        
+        error_msg = str(e)[:80] + "..." if len(str(e)) > 80 else str(e)
+        print(f"❌ FAILED:  {folder_name:20} | Error: {error_msg}")
 
+print("\n" + "=" * 60)
+print(f"📊 FINAL SUMMARY: {len(loaded_wizards)}/{len(WIZARDS)} wizards loaded")
+if loaded_wizards:
+    print("Successfully loaded:")
+    for name, path, status in loaded_wizards:
+        print(f"  • {name:20} -> {path} ({status})")
 print("=" * 60)
 
 

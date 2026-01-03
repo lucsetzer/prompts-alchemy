@@ -15,6 +15,8 @@ def layout(title: str, content: str) -> str:
             <li><a href="/prompt-wizard">Prompt Wizard</a></li>
             <li><a href="/thumbnail-wizard">Thumbnail Wizard</a></li>
             <li><a href="/video-wizard">Video Wizard</a></li>
+            <li><a href="/apps/document-wizard">Document Wizard</a></li>
+            <li><a href="/apps/hook-wizard">Hook Wizard</a></li>
         </ul>
     </nav>
     <main class="container">

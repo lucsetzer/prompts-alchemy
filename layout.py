@@ -150,54 +150,54 @@ def layout(title: str, content: str) -> str:
 
 
         /* Better Navbar Styling */
-.suite-nav {
-    background: white;
-    border-bottom: 2px solid #f3f4f6;
-    padding: 1rem 0;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-}
+        .suite-nav {
+            background: white;
+            border-bottom: 2px solid #f3f4f6;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
 
-.suite-nav a {
-    transition: all 0.2s ease;
-    padding: 0.5rem 0;
-    position: relative;
-}
+        .suite-nav a {
+            transition: all 0.2s ease;
+            padding: 0.5rem 0;
+            position: relative;
+        }
 
-.suite-nav a:hover {
-    color: var(--primary) !important;
-}
+        .suite-nav a:hover {
+            color: var(--primary) !important;
+        }
 
-/* Active page indicator */
-.suite-nav a.active {
-    color: var(--primary) !important;
-    font-weight: 600;
-}
+        /* Active page indicator */
+        .suite-nav a.active {
+            color: var(--primary) !important;
+            font-weight: 600;
+        }
 
-.suite-nav a.active::after {
-    content: '';
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: var(--primary);
-    border-radius: 2px;
-}
+        .suite-nav a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
 
-/* Mobile responsive */
-@media (max-width: 768px) {
-    .suite-nav > .container > div {
-        flex-direction: column;
-        gap: 1rem;
-    }
+        /* Mobile responsive */
+        @media (max-width: 768px) {
+            .suite-nav > .container > div {
+             flex-direction: column;
+            gap: 1rem;
+       }
     
-    .suite-nav .brand {
-        font-size: 1.25rem;
-    }
-}
+        .suite-nav .brand {
+             font-size: 1.25rem;
+       }
+   }
 
 
         

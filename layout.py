@@ -1,4 +1,4 @@
-# layout.py - Thumbnail Wizard Layout
+# layout.py - Prompts Alchemy Layout
 def layout(title: str, content: str) -> str:
     return f'''<!DOCTYPE html>
 <html>

@@ -3,7 +3,7 @@ def layout(title: str, content: str) -> str:
     return f'''<!DOCTYPE html>
 <html>
 <head>
-    <title>{title} | Thumbnail Wizard</title>
+    <title>{title} | Prompts Alchemy</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     

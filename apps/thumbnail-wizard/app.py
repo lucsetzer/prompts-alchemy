@@ -30,6 +30,20 @@ print("AI THUMBNAIL WIZARD")
 print(f"DEEPSEEK_API_KEY loaded: {'✅ Yes' if DEEPSEEK_API_KEY else '❌ No - Add to .env'}")
 print("=" * 50)
 
+
+
+# Add this debug endpoint to see the full layout
+@app.get("/debug-layout")
+async def debug_layout():
+    # Show what layout() produces with minimal content
+    test_content = "<h1>Test</h1>"
+    full_html = layout("Test", test_content)
+    
+    # Return first 2000 chars to see navbar
+    return HTMLResponse(f"<pre>{full_html[:2000]}</pre>")
+
+
+
 # ========== HOME / UPLOAD PAGE ==========
 @app.get("/")
 async def home():

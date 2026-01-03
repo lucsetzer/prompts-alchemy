@@ -52,7 +52,9 @@ for folder_name, mount_path in WIZARDS:
         
         # STRATEGY 1: Check for FastAPI 'app' object (most common)
         if hasattr(wizard_module, 'app'):
-            app.mount(mount_path, wizard_module.app)
+
+            from fastapi.middleware.trustedhost import TrustedHostMiddleware
+            
             status = "✅ MOUNTED (FastAPI app)"
             
         # STRATEGY 2: Check for APIRouter 'router' object

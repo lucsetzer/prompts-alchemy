@@ -188,6 +188,58 @@ async def debug_structure():
             }
     return structure
 
+
+@app.get("/debug/wizard-internals")
+async def debug_wizard_internals():
+    """Test the wizard's app.py directly"""
+    import importlib.util
+    import sys
+    
+    wizard_path = "apps/prompt-wizard/app.py"
+    
+    try:
+        # Load the module
+        spec = importlib.util.spec_from_file_location("test_wizard", wizard_path)
+        module = importlib.util.module_from_spec(spec)
+        
+        # Execute it
+        spec.loader.exec_module(module)
+        
+        # Check what we got
+        result = {
+            "file_exists": True,
+            "module_loaded": True,
+            "has_app": hasattr(module, 'app'),
+            "has_home": hasattr(module, 'home'),
+            "all_attrs": [a for a in dir(module) if not a.startswith('_')],
+        }
+        
+        # Try to create a minimal app if missing
+        if not hasattr(module, 'app'):
+            from fastapi import FastAPI
+            temp_app = FastAPI()
+            
+            # If home function exists, add it
+            if hasattr(module, 'home'):
+                @temp_app.get("/")
+                async def temp_home():
+                    return await module.home()
+            
+            result["created_temp_app"] = True
+            result["temp_app_routes"] = [r.path for r in temp_app.routes]
+            
+        return result
+        
+    except Exception as e:
+        return {
+            "file_exists": os.path.exists(wizard_path),
+            "error": str(e),
+            "traceback": traceback.format_exc()
+        }
+
+
+
+
 if __name__ == "__main__":
     import uvicorn
     print("\n" + "=" * 60)

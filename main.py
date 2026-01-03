@@ -513,6 +513,58 @@ async def debug_access(wizard_name: str):
 
 
 
+# ============================================
+# EMERGENCY DEBUG - ALWAYS WORKS
+# ============================================
+
+@app.get("/ping")
+async def ping():
+    return {"message": "pong", "timestamp": datetime.now().isoformat()}
+
+@app.get("/debug-app")
+async def debug_app():
+    """Debug the actual app object"""
+    import inspect
+    return {
+        "app_id": id(app),
+        "app_type": type(app).__name__,
+        "app_title": getattr(app, 'title', 'No title'),
+        "app_routes_count": len(app.routes),
+        "all_routes": [
+            {
+                "path": route.path,
+                "name": getattr(route, 'name', 'No name'),
+                "methods": getattr(route, 'methods', []),
+                "is_mount": hasattr(route, 'app')
+            }
+            for route in app.routes if hasattr(route, 'path')
+        ],
+        "loaded_wizards_count": len(loaded_wizards) if 'loaded_wizards' in locals() else "Not found",
+        "current_file": __file__,
+        "main_module": __name__
+    }
+
+# Force register a simple route that MUST work
+@app.get("/")
+async def force_root():
+    return {"message": "FORCED ROOT ROUTE", "app": "main.py"}
+
+# Also mount a simple test app
+from fastapi import FastAPI as FastAPI2
+from fastapi.responses import HTMLResponse
+
+test_app = FastAPI2()
+
+@test_app.get("/")
+async def test_app_home():
+    return HTMLResponse("<h1>Test App Works</h1>")
+
+app.mount("/test-app", test_app)
+
+
+
+
+
 
 
 

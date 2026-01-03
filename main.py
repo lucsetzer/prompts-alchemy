@@ -580,7 +580,9 @@ async def debug_current(wizard_name: str):
 
 
 
-
+@app.get("/test-simple")
+async def test_simple():
+    return {"message": "This wizard IS accessible", "path": "/test-simple"}
 
 
 

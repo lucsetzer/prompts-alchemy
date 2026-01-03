@@ -5,6 +5,7 @@ fastapi==0.104.1
 Pillow
 requests
 python-dotenv
+python-multipart
 
 # or at minimum:
 # fastapi

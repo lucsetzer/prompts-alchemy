@@ -164,11 +164,11 @@ def layout(title: str, content: str) -> str:
 <nav style="padding: 1rem 0; border-bottom: 1px solid #e5e7eb;">
     <div class="container">
         <a href="/" style="text-decoration: none; font-size: 1.25rem; font-weight: bold; color: var(--primary);">
-            <i class="fas fa-magic"></i> Thumbnail Wizard
+            <i class="fas fa-magic"></i> Prompts Alchemy
         </a>
         <span style="float: right;">
             <a href="/" style="margin-right: 1rem;">Home</a>
-            <a href="/wizard">Thumbnail Wizard</a>
+            <a href="/wizard">Prompts Alchemy</a>
         </span>
     </div>
 </nav>
@@ -178,7 +178,7 @@ def layout(title: str, content: str) -> str:
 </main>
 
 <footer style="text-align: center; padding: 2rem; color: #6b7280; border-top: 1px solid #e5e7eb;">
-    <p>Thumbnail Wizard • No JavaScript • Pure Python & HTML</p>
+    <p>Prompts Alchemy • No JavaScript • Pure Python & HTML</p>
 </footer>
 </body>
 </html>'''
